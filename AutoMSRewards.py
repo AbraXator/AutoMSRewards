@@ -7,16 +7,16 @@ import subprocess
 import time
 
 parent_dir = os.getenv('LOCALAPPDATA') + "/"
-#parent_dir = "C:/Users/Adam/Desktop/"
 my_dir = "AutoMSRewards"
 directory = os.path.join(parent_dir, my_dir)
-file_dir = directory + "/used.txt"
-
+used_file_dir = directory + "/used.txt"
 
 def main():
     subprocess.call("C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe")
     time.sleep(0.5)
     select_window()
+    with open(used_file_dir, "a") as f:
+        f.close
     for i in range(5):
         handle_controls(generate_string())
 
@@ -52,12 +52,12 @@ def handle_files(str):
         print(e)
 
 def write_into_file(str):
-    with open(file_dir, '+a') as f:
+    with open(used_file_dir, '+a') as f:
         f.write(str + "\n")
         f.close()
     
 def generate_string():
-    f = open(file_dir, 'r')
+    f = open(used_file_dir, 'r')
     read_text = f.read()
     list = read_text.split("\n")
     characters = string.ascii_letters + string.digits + string.punctuation
